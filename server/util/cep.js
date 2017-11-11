@@ -44,9 +44,42 @@ const formatCode = (cep_code) => {
 
 };
 
+/**
+ * Prepare the URL with the CEP code to then sent it to the "Melhor Envio" API.
+ */
 const formatURL = (cep_code) => {
 
       return util.format("https://location.melhorenvio.com.br/%s", cep_code);
+
+};
+
+/**
+ * Remove ALL null, undefined or false objects/values from the array.
+ */
+const trimResult = (arr) => {
+
+      return arr.filter(value => !!value);
+
+};
+
+
+/**
+ * Retrieve all information from an array of CEP codes.
+ * If a CEP code isn't found, it will be null and removed from the final array result.
+ */
+const retrieveAll = (cep_code_list) => {
+
+      const queue = cep_code_list.map((cep) => {
+
+            try {
+                  return getByCode(cep);
+            } catch (ex) {
+                  return null;
+            }
+
+      }).filter(task => !!task);
+
+      return Promise.all(queue).then(trimResult);
 
 };
 
@@ -55,6 +88,10 @@ const formatURL = (cep_code) => {
  * This resource uses the third-party "Melhor Envio" API.
  */
 const getByCode = (cep_code) => {
+
+      if (cep_code && Array.isArray(cep_code)) {
+            return retrieveAll(cep_code);
+      }
 
       const code = formatCode(cep_code);
       if (!code) {
