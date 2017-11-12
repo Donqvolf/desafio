@@ -9,7 +9,7 @@ class Heartbeat {
       async getSingleId({ row_id = 0 }) {
 
       }
-
+      
       async retrieveAll({ offset = 0, limit = 15 }) {
 
       }

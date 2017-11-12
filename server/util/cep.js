@@ -101,7 +101,7 @@ const getByCode = (cep_code) => {
       return new Promise((resolve, reason) => {
 
             const fromCache = app.cache.cep[cep_code];
-            if (fromCache) {
+            if (fromCache || fromCache === 0) {
                   return resolve(fromCache);
             }
 
@@ -115,6 +115,7 @@ const getByCode = (cep_code) => {
 
             }).catch((failure) => {
 
+                  app.cache.cep[cep_code] = 0; // Doesn't exists
                   if (failure.response.status === 404) {
                         return resolve(null);
                   } else {
