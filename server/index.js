@@ -1,4 +1,4 @@
-const mysql = require('mysql');
+const mysql = require('mysql2/promise');
 const express = require('express');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
@@ -31,27 +31,21 @@ app.database = mysql.createPool({
  *  pool connection from the mysql database. It also allows you to
  *  directly starts a database transaction.
  */
-app.connection = ({ isTransaction = false }) => {
+app.connection = async (options = { isTransaction: false }) => {
 
-      return new Promise((resolve, reason) => {
-            return app.database.getConnection((err, connection) => {
-                  if (err) {
-                        return reason(err);
-                  } else {
-                        if (!isTransaction) {
-                              return resolve(connection);
-                        } else {
-                              return connection.beginTransaction((failed) => {
-                                    if (failed) {
-                                          return reason(failed);
-                                    } else {
-                                          return resolve(connection);
-                                    }
-                              });
-                        }
-                  }
-            });
-      });
+      try {
+
+            const conn = await app.database.getConnection();
+            if (options.isTransaction) {
+                  await conn.beginTransaction();
+            }
+
+            return conn;
+
+      } catch (ex) {
+            console.error('Failed to retrieve a pool connection:');
+            throw ex;
+      }
 
 };
 
@@ -112,6 +106,7 @@ app.parser.cep = (request, response, nextMiddleware) => {
 app.model.main = require('./database/heartbeat');
 app.model.zone = require('./database/zone');
 app.model.queue = require('./database/queue');
+app.model.travel = require('./database/travel');
 
 /**
  * Init middlewares and routes

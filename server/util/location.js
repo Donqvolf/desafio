@@ -38,13 +38,13 @@ class Location {
        */
       static inSameCity({ from, to }) {
 
-            return isSameState({ from, to }) && from.cidade === to.cidade;
+            return this.inSameState({ from, to }) && from.cidade === to.cidade;
 
       };
 
       static fromCapital({ from, to }) {
 
-            if (!isSameCity({ from, to })) {
+            if (!this.inSameCity({ from, to })) {
                   if (app.cache.capitais.includes(from.cidade)) {
                         return !!app.cache.capitais.includes(to.cidade);
                   }
@@ -58,25 +58,19 @@ class Location {
        * Check the both CEP codes and returns the category character,
        *  i.e. 'L', 'E', etc.
        */
-      static getCategory({ from_cep_code, to_cep_code }) {
+      static getCategory({ from, to }) {
 
-            return new Promise((resolve, reason) => {
+            const data = { from, to };
 
-                  const codes = [from_cep_code, to_cep_code];
-                  return app.cep(codes).then((about) => {
-
-                        const a = about[0], b = about[1];
-                        if (isSameCity({ 'from': a, 'to': b })) {
-                              return 'L';
-                        } else if (isSameState({ 'from': a, 'to': b })) {
-                              return 'E';
-                        } else if (fromCapital({ 'from': a, 'to': b })) {
-                              return 'N';
-                        }
-
-                  });
-
-            })
+            if (this.inSameCity(data)) {
+                  return 'L';
+            } else if (this.inSameState(data)) {
+                  return 'E';
+            } else if (this.fromCapital(data)) {
+                  return 'N';
+            } else {
+                  return 'I';
+            }
 
       };
 

@@ -2,14 +2,14 @@ const mysql = require('mysql');
 
 class Heartbeat {
 
-      constructor() {
-            this.model = {};
+      constructor(trx) {
+            this.trx = trx;
       }
 
       async getSingleId({ row_id = 0 }) {
 
       }
-      
+
       async retrieveAll({ offset = 0, limit = 15 }) {
 
       }
