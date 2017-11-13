@@ -25,7 +25,7 @@ class Validator {
             this.response = response;
       }
 
-      productDetails({ height, width, weight, length }) {
+      productDetails({ type, height, width, weight, length, insurance }) {
 
             if (height < 2) {
                   this.response.status(400).json({ 'success': false, 'code': 40006, 'resume': "A altura mínima é 2cm." });
@@ -57,6 +57,17 @@ class Validator {
             } else if (length > 105) {
                   this.response.status(400).json({ 'success': false, 'code': 40006, 'resume': "O comprimento máximo é 105cm." });
                   return false;
+            }
+
+            if (insurance < 17) {
+                  this.response.status(400).json({ 'success': false, 'code': 40006, 'resume': "O valor segurado mínimo é R$17,00." });
+                  return false;
+            } else {
+                  const max = type === 1 ? 10000 : 3000;
+                  if (insurance > max) {
+                        this.response.status(400).json({ 'success': false, 'code': 40006, 'resume': "O valor segurado máximo é R$" + max + "." });
+                        return false;
+                  }
             }
 
             return true;

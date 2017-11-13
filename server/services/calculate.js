@@ -56,14 +56,22 @@ const processRequest = async (request, response) => {
       }
 
       const validator = new Validator(request, response);
-      width = +width, height = +height, weight = +weight, length = +length;
+
+      /**
+       * Convert to number or NaN
+       */
+      width = +width;
+      height = +height;
+      weight = +weight;
+      length = +length;
+      insurance = +insurance;
 
       /**
        * Check and apply the rules of the "Melhor Transportadora"
        */
-      if (width && height && weight && length) {
+      if (width && height && weight && length && insurance) {
 
-            if (!validator.productDetails({ height, width, weight, length })) {
+            if (!validator.productDetails({ type, height, width, weight, length, insurance })) {
                   return false;
             }
 
