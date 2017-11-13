@@ -5,7 +5,7 @@ template.ready.calculator = Handlebars.compile(template.source.calculator);
 
 var regex = {
     cep: /^[0-9]{5}[-]*[0-9]{3}$/,
-    unit: /^([0-9.]{1,20})(?:\s*cm|kg){0,1}$/i
+    unit: /^([0-9.,]{1,20})(?:\s*cm|kg){0,1}$/i
 };
 
 var serialize = function (obj) {
@@ -78,7 +78,7 @@ $("body").on('submit', 'form', function (event) {
         },
         {
             title: 'AVISO DE RECEBIMENTO (AR)',
-            text: 'Gostaria de receber um aviso de recbimento?',
+            text: 'Gostaria de receber um aviso de recebimento?',
             inputOptions: { 'true': 'SIM', 'false': 'NÃO' }
         },
         {
@@ -109,7 +109,7 @@ $("body").on('submit', 'form', function (event) {
 
             return swal({
                 title: "Yeah!",
-                html: "Nós calculamos o seu frete em <b>" + result.resume.pricing + '</b>, com previsão média para chegada em <b>' + result.resume.rawDeadline + ' dia(s) úteis</b>, através do ' + result.resume.service + '.',
+                html: "Nós calculamos o seu frete em <b>" + result.resume.pricing + '</b>, com previsão média para chegada em <b>' + result.resume.rawDeadline + ' dia(s) úteis</b>, considerando o envio por serviço ' + result.resume.service + '.',
                 type: "success"
             }).then(function () {
                 $('input').val('');

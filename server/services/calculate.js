@@ -60,10 +60,10 @@ const processRequest = async (request, response) => {
       /**
        * Convert to number or NaN
        */
-      width = +width;
-      height = +height;
-      weight = +weight;
-      length = +length;
+      width = +(String(width).trim().replace(',', '.'));
+      height = +(String(height).trim().replace(',', '.'));
+      weight = +(String(weight).trim().replace(',', '.'));
+      length = +(String(length).trim().replace(',', '.'));
       insurance_value = +insurance_value;
 
       /**
@@ -164,7 +164,7 @@ const processRequest = async (request, response) => {
 
       const deadline = await Deadline({ from, to, height, width, weight, length });
 
-      resume.service = type === 1 ? 'Envio Expresso' : 'Envio Econômico';
+      resume.service = type === 1 ? 'Expresso' : 'Econômico';
       resume.pricing = 'R$ ' + (parseFloat(chargeable).toFixed(2)).replace('.', ',');
       resume.deadline = 'Em média, até ' + deadline + ' dia(s) úteis';
       resume.rawDeadline = +deadline;
