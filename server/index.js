@@ -33,7 +33,7 @@ app.parser = {};
 app.cache = {};
 app.cache.cep = {};
 app.cache.deadline = {};
-app.cache.capitais = require('./capitais')
+app.cache.capitais = require('./capitais');
 
 /**
  * Starts a pool mysql connection and set it to the `app.database`
@@ -90,7 +90,7 @@ app.parser.cep = (request, response, nextMiddleware) => {
                         response.status(400).json({
                               'success': false,
                               'code': 40001,
-                              'resume': 'Please, be sure that the informed CEP code(s) are valid and exist; and then, try again.'
+                              'resume': 'Não foi possível obter os dados do CEP informado.'
                         });
 
                         return resolve();
@@ -110,7 +110,7 @@ app.parser.cep = (request, response, nextMiddleware) => {
                   response.status(500).json({
                         'success': false,
                         'code': 50001,
-                        'resume': 'Please, be sure that the informed CEP code(s) are valid and exist; and then, try again.'
+                        'resume': 'Não foi possível obter os dados do CEP informado.'
                   });
 
                   return resolve();

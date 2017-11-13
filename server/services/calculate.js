@@ -37,7 +37,7 @@ const processRequest = async (request, response) => {
        * Check if the type is informed properly
        */
       if (!type || (type != 'expresso' && type != 'economico')) {
-            return response.status(400).json({ 'success': false, 'code': 40004, 'resume': "You should inform the 'type' ('expresso' or 'economico') through the URL param." })
+            return response.status(400).json({ 'success': false, 'code': 40004, 'resume': "Por favor, informe o tipo de envio (economico ou expresso)." })
       } else {
             type = (type === 'expresso' ? 1 : 2);
       }
@@ -55,7 +55,7 @@ const processRequest = async (request, response) => {
             }
 
       } else {
-            return response.status(400).json({ 'success': false, 'code': 40003, 'resume': "Please, inform product details on request url query." });
+            return response.status(400).json({ 'success': false, 'code': 40003, 'resume': "Por favor, preencha todos os campos." });
       }
 
       const connection = await app.connection();
@@ -71,7 +71,7 @@ const processRequest = async (request, response) => {
             return response.status(500).json({
                   'success': false,
                   'code': 50002,
-                  'resume': "We couldn't process your combination of FROM and TO travel."
+                  'resume': "Lamentamos, mas atualmente este trajeto não é suportado (2)."
             });
 
       }
@@ -85,7 +85,7 @@ const processRequest = async (request, response) => {
             return response.status(406).json({
                   'success': false,
                   'code': 406001,
-                  'resume': "We currently don't offer support to this route."
+                  'resume': "Lamentamos, mas atualmente este trajeto não é suportado."
             });
 
       }
@@ -128,8 +128,9 @@ const processRequest = async (request, response) => {
 
       const deadline = await Deadline({ from, to, height, width, weight, length });
 
+      resume.service = type === 1 ? 'Envio Expresso' : 'Envio Econômico';
       resume.pricing = 'R$ ' + parseFloat(chargeable).toFixed(2);;
-      resume.deadline = 'On average, within ' + deadline + ' day(s)';
+      resume.deadline = 'Em média, até ' + deadline + ' dia(s)';
       resume.rawDeadline = +deadline;
 
       await connection.release();
