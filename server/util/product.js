@@ -57,8 +57,26 @@ class Product {
             return (this.data.price / 100) * 1;
       }
 
+      /**
+       * Sets the price of the product/box to be sent.
+       */
       set price(value) {
             this.data.price = +value;
+      }
+
+      /**
+       * Retrieves the price of extra KG (weight) based on the type ('expresso' or 'economico').
+       *  It should be used if the weight (in KG) is > than 10.
+       */
+      extra(price) {
+
+            const extraWeight = (this.weight - 10);
+            if (extraWeight <= 0) {
+                  return 0;
+            }
+
+            return (+price * extraWeight);
+
       }
 
 }

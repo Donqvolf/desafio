@@ -16,13 +16,22 @@
  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @@@@@@@
+ * @@ Mensagens de resposta ao client-side encontram-se em pt-BR
+ * @@  por razões de integrar de forma mais eficiente com o pouco tempo disponível.
+ * @@@@@@@
  * 
  */
 const Location = require('../util/location');
 const Validator = require('./validator');
 const Product = require('../util/product');
 const Deadline = require('../util/deadline');
+const aditional = require('../util/aditional');
 
+/**
+ * Handle the request made by the client-side through the '/api/calculate' route.
+ */
 const processRequest = async (request, response) => {
 
       const resume = {};
@@ -37,7 +46,11 @@ const processRequest = async (request, response) => {
        * Check if the type is informed properly
        */
       if (!type || (type != 'expresso' && type != 'economico')) {
-            return response.status(400).json({ 'success': false, 'code': 40004, 'resume': "Por favor, informe o tipo de envio (economico ou expresso)." })
+            return response.status(400).json({
+                  'success': false,
+                  'code': 40004,
+                  'resume': "Por favor, informe o tipo de envio (economico ou expresso)."
+            });
       } else {
             type = (type === 'expresso' ? 1 : 2);
       }
@@ -55,7 +68,13 @@ const processRequest = async (request, response) => {
             }
 
       } else {
-            return response.status(400).json({ 'success': false, 'code': 40003, 'resume': "Por favor, preencha todos os campos." });
+
+            return response.status(400).json({
+                  'success': false,
+                  'code': 40003,
+                  'resume': "Por favor, preencha todos os campos."
+            });
+
       }
 
       const connection = await app.connection();
@@ -91,6 +110,13 @@ const processRequest = async (request, response) => {
       }
 
       price = +price, chargeable = +chargeable;
+
+      /**
+       * Calculate the aditional price per KG
+       */
+      price += product.extra(aditional[type][stretch]);
+      chargeable += product.extra(aditional[type][stretch]);
+
       product.price = price;
 
       /**
@@ -129,8 +155,8 @@ const processRequest = async (request, response) => {
       const deadline = await Deadline({ from, to, height, width, weight, length });
 
       resume.service = type === 1 ? 'Envio Expresso' : 'Envio Econômico';
-      resume.pricing = 'R$ ' + parseFloat(chargeable).toFixed(2);;
-      resume.deadline = 'Em média, até ' + deadline + ' dia(s)';
+      resume.pricing = 'R$ ' + (parseFloat(chargeable).toFixed(2)).replace('.', ',');
+      resume.deadline = 'Em média, até ' + deadline + ' dia(s) úteis';
       resume.rawDeadline = +deadline;
 
       await connection.release();

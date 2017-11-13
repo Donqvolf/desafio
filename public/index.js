@@ -109,7 +109,7 @@ $("body").on('submit', 'form', function (event) {
 
             return swal({
                 title: "Yeah!",
-                html: "Nós calculamos o seu frete em <b>" + result.resume.pricing + '</b>, com previsão média para chegada em <b>' + result.resume.rawDeadline + ' dias</b>.',
+                html: "Nós calculamos o seu frete em <b>" + result.resume.pricing + '</b>, com previsão média para chegada em <b>' + result.resume.rawDeadline + ' dia(s) úteis</b>.',
                 type: "success"
             }).then(function () {
                 $('input').val('');

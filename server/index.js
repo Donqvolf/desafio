@@ -32,7 +32,6 @@ app.parser = {};
  */
 app.cache = {};
 app.cache.cep = {};
-app.cache.deadline = {};
 app.cache.capitais = require('./capitais');
 
 /**
@@ -126,7 +125,6 @@ app.parser.cep = (request, response, nextMiddleware) => {
  */
 app.model.main = require('./database/heartbeat');
 app.model.zone = require('./database/zone');
-app.model.queue = require('./database/queue');
 app.model.travel = require('./database/travel');
 
 /**
