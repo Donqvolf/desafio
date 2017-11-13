@@ -53,3 +53,5 @@ Este projeto está licenciado com MIT e pode ser utilizado por qualquer entidade
 ## Credits
 Copyright (c) 2017 João Pedro Viana (<snider@degiant.com.br>)  
 Telegram: <https://t.me/Donqvolf> | Facebook: <https://fb.com/Donqvolf>
+
+Alpha released on November 13, 2017.
