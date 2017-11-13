@@ -39,7 +39,7 @@ const processRequest = async (request, response) => {
       /**
        * Check query parameters
        */
-      let { width, height, weight, length, insurance, ar, mp } = request.query;
+      let { width, height, weight, length, insurance_value, insurance, ar, mp } = request.query;
       let type = request.params.type || request.query.type;
 
       /**
@@ -64,14 +64,14 @@ const processRequest = async (request, response) => {
       height = +height;
       weight = +weight;
       length = +length;
-      insurance = +insurance;
+      insurance_value = +insurance_value;
 
       /**
        * Check and apply the rules of the "Melhor Transportadora"
        */
-      if (width && height && weight && length && insurance) {
+      if (width && height && weight && length && insurance_value) {
 
-            if (!validator.productDetails({ type, height, width, weight, length, insurance })) {
+            if (!validator.productDetails({ type, height, width, weight, length, insurance_value })) {
                   return false;
             }
 
@@ -137,16 +137,17 @@ const processRequest = async (request, response) => {
        * If an insurance has been requested,
        *  add the price to the charge value.
        */
-      if (insurance) {
+      if (insurance === 'true') {
             let extraValue = +parseFloat(product.insurance).toFixed(2);
             chargeable += extraValue;
       }
+
 
       /**
        * If an MP ('Mao Propria') has been requgetDeadlineested,
        *  add the price to the charge value.
        */
-      if (mp) {
+      if (mp === 'true') {
             let extraValue = 3;
             chargeable += extraValue;
       }
@@ -155,10 +156,11 @@ const processRequest = async (request, response) => {
        * If an AR ('Aviso de Recebimento') has been requested,
        *  add the price to the charge value.
        */
-      if (ar) {
+      if (ar === 'true') {
             let extraValue = +parseFloat((chargeable / 100) * 5).toFixed(2);
             chargeable += extraValue;
       }
+
 
       const deadline = await Deadline({ from, to, height, width, weight, length });
 

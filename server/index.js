@@ -22,10 +22,15 @@ const mysql = require('mysql2/promise');
 const express = require('express');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
+const yamljs = require('yamljs');
 
 app = {};
 app.model = {};
 app.parser = {};
+app.config = yamljs.load('./config.yml');
+
+console.log('=> Starting the server with the below configuration:');
+console.log(app.config);
 
 /**
  * Load the cache and common used variables
@@ -39,9 +44,9 @@ app.cache.capitais = require('./capitais');
  */
 app.database = mysql.createPool({
       connectionLimit: 15,
-      host: '127.0.0.1',
-      user: 'root',
-      password: 'root',
+      host: app.config.mysql.host,
+      user: app.config.mysql.username,
+      password: app.config.mysql.password,
       database: 'mvchallenge',
       charset: 'utf8mb4_unicode_ci'
 });
@@ -136,6 +141,6 @@ app.route.use(helmet());
 app.route.use(bodyParser.urlencoded({ "extended": false }));
 app.route.use(bodyParser.json());
 app.route.use('/api', require('./services/index'));
-app.route.listen(4000, () => console.log('Listening on the port 4000'));
+app.route.listen(3000, () => console.log(`=> Listening on the port 3000 - http://localhost:3000`));
 
 module.exports = app;
