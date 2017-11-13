@@ -6,6 +6,9 @@
   "repository": "git@github.com:Donqvolf/desafio.git",
   "author": "João Pedro Viana <snider@degiant.com.br>",
   "license": "MIT",
+  "scripts": {
+    "start": "node server/index.js"
+  },
   "dependencies": {
     "axios": "^0.17.0",
     "body-parser": "^1.18.2",
