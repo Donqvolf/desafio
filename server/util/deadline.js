@@ -40,9 +40,7 @@ const trimResult = (arr) => {
 };
 
 const convertDays = (value) => {
-
       return +value.delivery_time;
-
 };
 
 const getDeadline = ({ from, to, height, width, weight, length }) => {
