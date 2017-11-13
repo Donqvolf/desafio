@@ -10,9 +10,6 @@ echo "cd /project" >> /home/vagrant/.bash_profile
 echo "+ Updating Apt Repositories before start"
 apt-get -q -y update 1>/dev/null 2>&1
 
-echo "+ Installing NginX"
-apt-get -y install nginx-extras 1>/dev/null 2>&1
-
 echo "+ Installing git, make and curl"
 apt-get -q -y install git make curl 1>/dev/null 2>&1
 
@@ -44,20 +41,14 @@ make install  1>/dev/null 2>&1
 n 8.9  1>/dev/null 2>&1
 npm i -g npm 1>/dev/null 2>&1
 
-### Add yarn references
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -  1>/dev/null 2>&1
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list  1>/dev/null 2>&1
-echo "+ Installing Yarn Client"
-apt-get update && sudo apt-get install yarn  1>/dev/null 2>&1
-
 echo "+ Installing PM2, Gulp, Grunt and N"
-npm install -g pm2 gulp grunt n 1>/dev/null 2>&1
+sudo npm install -g pm2 gulp grunt n 1>/dev/null 2>&1
 
 echo "+ Installing Project Dependencies"
-cd /project ; yarn install 1>/dev/null 2>&1
+cd /project ; npm install 1>/dev/null 2>&1
 
 echo "+ Updating Apt Repositories after finished"
-apt-get -q -y update 1>/dev/null 2>&1
+sudo apt-get -q -y update 1>/dev/null 2>&1
 
 exit 0
 

@@ -33,8 +33,9 @@ Deverá aparecer na tela do console, em seguida, o link para acessar no seu nave
 - `body-parser` para processar dados de pedidos express e compilar o JSON, quando necessário.
 
 ## Postman
-A rota de cálculo **(API)** do projeto estarão disponíveis, com exemplos salvos, descricão de cada parâmetro de forma minuciosa, na seguinte Collection do Postman, acessível pelo link: 
+A rota de cálculo **(API)** do projeto estarão disponíveis, com exemplos salvos, descricão de cada parâmetro de forma minuciosa, na seguinte Collection do Postman, acessível abaixo. Lembre-se que se rodar dentro da Vagrant, terá de alterar o URL nas rotas do Postman.
 
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/dd20a3336bfe7ec90da4)
 
 ## Vagrant
 
