@@ -18,29 +18,49 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * 
  */
-const Model = app.model.main;
+class Product {
 
-class Zone extends Model {
-
-      constructor(trx) {
-            super(trx);
+      constructor({ height, width, weight, length, price = 0 }) {
+            this.data = {};
+            this.data.height = height;
+            this.data.width = width;
+            this.data.weight = Math.ceil(weight);
+            this.data.length = length;
+            this.data.price = 0;
       }
 
       /**
-       * Retrieves the base of price from a Place X to an Place Y.
-       * @param 'weight' the unity of the value is GR, not KG.
+       * Calculate the bulk ('volume') of the product.
        */
-      async getPrice({ type, stretch, weight }) {
+      get bulk() {
+            return this.data.height * this.data.width * this.data.length;
+      }
 
-            const sql = 'SELECT JSON_EXTRACT(`zone`.`price`, CONCAT("$.", ?)) AS `price` \
-                         FROM `zone` WHERE `type` = ? AND ((?) BETWEEN `min_gr` AND `max_gr`) LIMIT 1';
-            
-            const params = [stretch, type, weight];
-            const [rows] = await this.trx.query(sql, params);
-            return rows[0]['price'];
+      /**
+       * Calculate the cubic weight ('peso cubico') using the bulk weight.
+       */
+      get cubicWeight() {
+            return Math.ceil(this.bulk / 6000);
+      }
 
+      /**
+       * Get the final product's weight (that will be used to charge).
+       */
+      get weight() {
+            return Math.max(this.cubicWeight, this.data.weight);
+      }
+
+      /**
+       * Get the tax of insurance ('Seguro') (corresponds to 1% of product value)
+       */
+      get insurance() {
+            return (this.data.price / 100) * 1;
+      }
+
+      set price(value) {
+            this.data.price = +value;
       }
 
 }
 
-module.exports = Zone;
+module.exports = Product;

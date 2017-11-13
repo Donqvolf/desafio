@@ -3,4 +3,5 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/calculate/:type/:from_cepcode/:to_cepcode', app.parser.cep, services.calculate);
+router.get('/calculate/:from_cepcode/:to_cepcode', app.parser.cep, services.calculate);
 module.exports = router;

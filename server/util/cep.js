@@ -115,8 +115,8 @@ const getByCode = (cep_code) => {
 
             }).catch((failure) => {
 
-                  app.cache.cep[cep_code] = 0; // Doesn't exists
-                  if (failure.response.status === 404) {
+                  if (failure.status === 404) {
+                        app.cache.cep[cep_code] = 0; // Doesn't exists
                         return resolve(null);
                   } else {
                         return reason(failure);

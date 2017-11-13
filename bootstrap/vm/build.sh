@@ -37,11 +37,11 @@ echo -e "[client]\nuser=root\npassword=root" | tee /home/vagrant/.my.cnf 1>/dev/
 echo -e "[client]\nuser=root\npassword=root" | tee /root/.my.cnf 1>/dev/null 2>&1
 service mysql restart 1>/dev/null 2>&1
 
-echo "+ Installing Node.js 9.1 and NPM"
+echo "+ Installing Node.js 8.9 and NPM"
 git clone https://github.com/visionmedia/n.git /opt/n  1>/dev/null 2>&1
 cd /opt/n
 make install  1>/dev/null 2>&1
-n 9.1  1>/dev/null 2>&1
+n 8.9  1>/dev/null 2>&1
 npm i -g npm 1>/dev/null 2>&1
 
 ### Add yarn references

@@ -61,6 +61,7 @@ class Location {
       static getCategory({ from, to }) {
 
             const data = { from, to };
+            console.log(from.cidade, to.cidade);
 
             if (this.inSameCity(data)) {
                   return 'L';

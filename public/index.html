@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Desafio da Melhor Transportadora</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.min.css" />
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body>
+    <div class="user">
+        <header class="user__header">
+            <img src="img/logo.png" width="250" height="100" alt="" />
+            <h1 class="user__title">Desafio de Programação da <b>Melhor Transportadora</b>
+                <br/>Preencha os Campos e Calcule seu frete!
+            </h1>
+        </header>
+
+        <div id="t-register-form-dom">
+        </div>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.all.min.js"></script>
+
+    <script id="t-register-form" type="text/x-handlebars-template">
+        <form id="f-customer-register" class="form" action="/api/calculate" method="POST">
+            <div class="form__group">
+                <input id="origin" type="text" placeholder="CEP: Origem" class="form__input" />
+            </div>
+
+            <div class="form__group">
+                <input id="length" type="text" placeholder="Comprimento em CM" class="form__input" />
+            </div>
+
+            <div class="form__group">
+                <input id="width" type="text" placeholder="Largura em CM" class="form__input" />
+            </div>
+
+            <div class="form__group">
+                <input id="height" type="text" placeholder="Altura em CM" class="form__input" />
+            </div>
+
+            <div class="form__group">
+                <input id="weight" type="text" placeholder="Peso em KG" class="form__input" />
+            </div>
+
+            <div class="form__group">
+                <input id="insurance" type="text" placeholder="Valor Segurado em R$" class="form__input" />
+            </div>
+
+            <div class="form__group">
+                <input id="destiny" type="text" placeholder="CEP: Destino" class="form__input" />
+            </div>
+
+            <button id="b-customer-register" class="btn" type="submit">Calcular meu frete</button>
+        </form>
+    </script>
+
+    <script src="./index.js"></script>
+
+</body>
+
+</html>

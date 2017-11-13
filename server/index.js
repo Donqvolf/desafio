@@ -32,6 +32,7 @@ app.parser = {};
  */
 app.cache = {};
 app.cache.cep = {};
+app.cache.deadline = {};
 app.cache.capitais = require('./capitais')
 
 /**
@@ -132,6 +133,7 @@ app.model.travel = require('./database/travel');
  * Init middlewares and routes
  */
 app.route = express();
+app.route.use(express.static('public'));
 app.route.use(helmet());
 app.route.use(bodyParser.urlencoded({ "extended": false }));
 app.route.use(bodyParser.json());
