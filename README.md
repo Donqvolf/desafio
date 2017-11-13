@@ -1,5 +1,5 @@
 ## Installation
-Em resumo, este projeto consiste em implementar a solucão proposta pelo Melhor Envio, no desafio da Melhor Transportadora. Este software foi feito do zero, sem utilizar bases prontas (protótipos), e espero que possa ser útil à todo aquele que precisar calcular fretes e/ou prazos; ou, ao menos, ter uma base ideológica de como o processo funciona, atualmente.
+Em resumo, este projeto consiste em implementar a solucão proposta pelo Melhor Envio, no desafio da Melhor Transportadora. Espero que possa ser útil à todo aquele que precisar calcular fretes e/ou prazos; ou, ao menos, ter uma base ideológica de como o processo funciona, atualmente.
 
 ### Softwares necessários
 Para que este software rode de forma apropriada, será necessário os seguintes softwares:

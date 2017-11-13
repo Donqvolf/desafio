@@ -5,7 +5,7 @@ template.ready.calculator = Handlebars.compile(template.source.calculator);
 
 var regex = {
     cep: /^[0-9]{5}[-]*[0-9]{3}$/,
-    unit: /^([0-9.,]{1,20})(?:\s*cm|kg){0,1}$/i
+    unit: /^([0-9.,]{1,20})$/i
 };
 
 var serialize = function (obj) {
